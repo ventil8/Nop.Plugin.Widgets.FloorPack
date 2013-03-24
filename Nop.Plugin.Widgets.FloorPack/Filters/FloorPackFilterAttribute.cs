@@ -88,7 +88,7 @@ namespace Nop.Plugin.Widgets.FloorPack.Filters
                     FloorPackRecord record = floorPackService.GetByProductVariantId(productVariantId);
                     NameValueCollection form = filterContext.HttpContext.Request.Form;
                     decimal m2PerPack = 0;
-                    decimal.TryParse(form["M2 Per Pack:"], out m2PerPack);
+                    decimal.TryParse(form["M2PerPack"], out m2PerPack);
 
                     if (record == null)
                         record = new FloorPackRecord();
