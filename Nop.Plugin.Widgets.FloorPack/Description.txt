@@ -1,0 +1,8 @@
+﻿Group: Widgets
+FriendlyName: Floor Pack Calculation
+SystemName: Widgets.FloorPack
+Version: 1.00
+SupportedVersions: 2.80
+Author: Lam Woon Cherk (http://panorazzi.com)
+DisplayOrder: 1
+FileName: Nop.Plugin.Widgets.FloorPack.dll

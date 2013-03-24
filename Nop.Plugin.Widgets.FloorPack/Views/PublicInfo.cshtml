@@ -1,0 +1,62 @@
+﻿@using Nop.Web.Framework.UI;
+@using Nop.Web.Framework;
+
+@model Nop.Plugin.Widgets.FloorPack.Models.PublicInfoModel
+<h3>@T("Calculate how much flooring you need")</h3>
+<div class="area">
+    @T("Area")
+    <input id="area-input" type="text" value="0" /> M&sup2; 
+    <span id="loader">Loading...</span>
+    <div id="calculation-result">
+        <div id="result"></div>
+        @*@T("Plugins.Widgets.FloorPack.YouRequire")
+        <span id="pack-count"></span>
+        @T("Plugins.Widgets.FloorPack.Packs")
+        (<span id="m2-count"></span> m2)
+        @T("Plugins.Widgets.FloorPack.At")
+        <span id="m2-price"></span>*@
+        <div id="totalPrice"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        function showLoading() {
+            $('#loader').show();
+        }
+
+        function hideLoading() {
+            $('#loader').hide();
+        }
+
+        var m2PerPack = @Model.M2PerPack;
+
+        $('#area-input').change(function() {
+            var area = $(this).val();
+
+            if (area > 0)
+            {
+                $('#calculation-result').show();
+                showLoading();
+                $.ajax({
+                    url: '@Url.RouteUrl("Plugin.Widgets.FloorPack.Calculate")',
+                    data: 'productVariantId=@Model.ProductVariantId&area=' + area,
+                    type: 'POST',
+                    success: function(successResult) {
+                        if (successResult.successful) {
+                            $('#result').html(successResult.calculationResult);
+                            $('#totalPrice').html(successResult.totalPrice);
+                        }
+                    },
+                    complete: function () {
+                        hideLoading();
+                    }
+                });
+            }
+            else
+                $('#calculation-result').hide();
+        });
+
+        $('#calculation-result').hide();
+        hideLoading();
+    });
+</script>
