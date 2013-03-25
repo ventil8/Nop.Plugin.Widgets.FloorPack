@@ -69,7 +69,7 @@ namespace Nop.Plugin.Widgets.FloorPack.Controllers
             ProductVariant productVariant = product.ProductVariants.FirstOrDefault();
             FloorPackRecord record = _floorPackService.GetByProductVariantId(productVariant.Id);
 
-            if (record == null || !record.M2PerPack.HasValue)
+            if (record == null || !record.M2PerPack.HasValue || record.M2PerPack.Value <= 0)
                 return null;
 
             model.M2PerPack = record.M2PerPack.Value;
